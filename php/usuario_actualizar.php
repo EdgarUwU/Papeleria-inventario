@@ -6,6 +6,7 @@
     /*== Almacenando id ==*/
     $id=limpiar_cadena($_POST['id_usuario']);
 
+
     /*== Verificando usuario ==*/
 	$check_usuario=conexion2();
 	$check_usuario=$check_usuario->query("SELECT * FROM usuario WHERE id_usuario='$id' AND deleted='0'");
@@ -31,13 +32,16 @@
 
     $username=limpiar_cadena($_POST['username']);
 
+    $privilegio=limpiar_cadena($_POST['permiso_usuario']);
+
+
     $contrasena=limpiar_cadena($_POST['contrasena']);
     $contrasena2=limpiar_cadena($_POST['contrasena2']);
     $modified_by=limpiar_cadena($_SESSION['nombre']." ".$_SESSION['apellido_pat']." ".$_SESSION['apellido_mat']);
 
 
     /*== Verificando campos obligatorios del usuario ==*/
-    if($nombre=="" || $username=="" || $contrasena=="" || $contrasena2==""){
+    if($nombre=="" || $username=="" || $contrasena=="" || $contrasena2=="" || $privilegio==""){
         echo '
             <div class="notification is-danger is-light">
                 <strong>¡Ocurrio un error inesperado!</strong><br>
@@ -84,10 +88,19 @@
         ';
         exit();
     }
+    if($privilegio==""){
+        echo '
+            <div class="notification is-danger is-light">
+                <strong>¡Ocurrio un error inesperado!</strong><br>
+                No has seleccionado un PERMISO
+            </div>
+        ';
+        exit();
+    }
     }
 
 
-    
+
 
     /*== Verificando usuario ==*/
     if($username!=$datos['nombre_usuario']){
@@ -137,7 +150,7 @@
     /*== Actualizar datos ==*/
     $actualizar_usuario=conexion();
     $actualizar_usuario=$actualizar_usuario->prepare("UPDATE usuario SET nombre_usuario=:username,nombre=:nombre,apellido_pat=:apellido_pat,
-    apellido_mat=:apellido_mat,contrasena=:contrasena,modify_date=:modified,modify_by=:modified_by WHERE id_usuario=:id");
+    apellido_mat=:apellido_mat,contrasena=:contrasena,modify_date=:modified,modify_by=:modified_by,privilegios=:privilegio WHERE id_usuario=:id");
 //gtm-6
     $marcadores_usuario=[
         ":nombre"=>$nombre,
@@ -146,6 +159,7 @@
         ":username"=>$username,
         ":contrasena"=>$contrasena,
         ":id"=>$id,
+        ":privilegio"=>$privilegio,
         ":modified"=>gmdate("Y-m-d H:i:s",time()-18000),
         ":modified_by"=>$modified_by
     ];
