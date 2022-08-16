@@ -2,15 +2,11 @@
 	
 	# Conexion a la base de datos #
 	function conexion(){
-		$pdo = new PDO('mysql:host=192.168.127.129;dbname=maquillaje_inventario', 'admin', 'Admin-123');
+		$pdo = new PDO('mysql:host=localhost;dbname=papeleria', 'root', 'Alapastrucka1#_');
 		return $pdo;
 	}
 	function conexion2(){
-		$pdo = new PDO('mysql:host=192.168.127.130;dbname=maquillaje_inventario', 'admin', 'Admin-123');
-		return $pdo;
-	}
-	function conexion3(){
-		$pdo = new PDO('mysql:host=localhost;dbname=inventario', 'root', 'Alapastrucka1#_');
+		$pdo = new PDO('mysql:host=localhost;dbname=papeleria', 'root', 'Alapastrucka1#_');
 		return $pdo;
 	}
 

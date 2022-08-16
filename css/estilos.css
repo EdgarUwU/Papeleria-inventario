@@ -1,11 +1,9 @@
-body,
-html {
+body {
   margin: 0;
   padding: 0;
   height: auto;
   display: block;
   width: 100%;
-  background-color: #f2f2f2;
 }
 .main-container {
   height: 100%;
@@ -13,17 +11,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.logo {
-  width: 75%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.logo2{
-  width: 100%;
-  height: auto;
+  position: relative;
 }
 .login {
   width: 100%;
@@ -45,7 +33,7 @@ html {
   justify-content: center;
   align-items: center;
 }
-.logo-login{
+.fondo-login{
   width: 100%;
   height: auto;
   align-items: center;

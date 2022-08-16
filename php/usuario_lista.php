@@ -4,16 +4,16 @@ $tabla = "";
 
 if (isset($busqueda) && $busqueda != "") {
 
-	$consulta_datos = "SELECT * FROM USUARIOS WHERE ((id_usuario!='" . $_SESSION['id'] . "') 
-		AND deleted = '0' AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR username LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%')) 
+	$consulta_datos = "SELECT * FROM usuario WHERE ((id_usuario!='" . $_SESSION['id'] . "') 
+		AND deleted = '0' AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR nombre_usuario LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%')) 
 		ORDER BY nombre ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_usuario) FROM USUARIOS WHERE ((id_usuario!='" . $_SESSION['id'] . "') AND deleted = '0' AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR username LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%'))";
+	$consulta_total = "SELECT COUNT(id_usuario) FROM usuario WHERE ((id_usuario!='" . $_SESSION['id'] . "') AND deleted = '0' AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR nombre_usuario LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%'))";
 } else {
 
-	$consulta_datos = "SELECT * FROM USUARIOS WHERE id_usuario!='" . $_SESSION['id'] . "' AND deleted='0' ORDER BY nombre ASC LIMIT $inicio,$registros";
+	$consulta_datos = "SELECT * FROM usuario WHERE id_usuario!='" . $_SESSION['id'] . "' AND deleted='0' ORDER BY nombre ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_usuario) FROM USUARIOS WHERE id_usuario!='" . $_SESSION['id'] . "'  AND deleted='0'";
+	$consulta_total = "SELECT COUNT(id_usuario) FROM usuario WHERE id_usuario!='" . $_SESSION['id'] . "'  AND deleted='0'";
 }
 
 $conexion = conexion2();
@@ -33,12 +33,8 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 		$tabla .= '
 				<article class="media">
 			        <figure class="media-left">
-			            <p class="image is-64x64">';
-		if (is_file("./img/user/" . $rows['foto'])) {
-			$tabla .= '<img src="./img/user/' . $rows['foto'] . '">';
-		} else {
-			$tabla .= '<img src="./img/user/user_default.jpg">';
-		}
+			            <p class="image is-64x64">
+						<img src="./img/user/user_default.jpg">';
 		$tabla .= '</p>
 			        </figure>
 			        <div class="media-content">

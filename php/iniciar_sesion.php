@@ -53,15 +53,15 @@ if (getenv('HTTP_CLIENT_IP')) {
 
 
 $check_user = conexion2();
-$check_user = $check_user->query("SELECT * FROM USUARIOS WHERE username = '$username'");
+$check_user = $check_user->query("SELECT * FROM usuario WHERE nombre_usuario = '$username'");
 if ($check_user->rowCount() == 1) {
 
     $check_user = $check_user->fetch();
 
-    if ($check_user['username'] == $username && password_verify($contrasena, $check_user['contrasena'])) {
+    if ($check_user['nombre_usuario'] == $username && password_verify($contrasena, $check_user['contrasena'])) {
 
         $_SESSION['id'] = $check_user['id_usuario'];
-        $_SESSION['username'] = $check_user['username'];
+        $_SESSION['username'] = $check_user['nombre_usuario'];
         $_SESSION['nombre'] = $check_user['nombre'];
         $_SESSION['apellido_pat'] = $check_user['apellido_pat'];
         $_SESSION['apellido_mat'] = $check_user['apellido_mat'];

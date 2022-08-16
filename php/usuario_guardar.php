@@ -13,7 +13,7 @@
     $contrasena_1=limpiar_cadena($_POST['contrasena']);
     $contrasena_2=limpiar_cadena($_POST['contrasena2']);
     $permiso=limpiar_cadena($_POST['permiso_usuario']);
-    $create_by=limpiar_cadena($_SESSION['id']);
+    $create_by=limpiar_cadena($_SESSION['nombre']." ".$_SESSION['apellido_pat']." ".$_SESSION['apellido_mat']);
 
 
     /*== Verificando campos obligatorios ==*/
@@ -64,7 +64,7 @@
 
     /*== Verificando usuario ==*/
     $check_usuario=conexion2();
-    $check_usuario=$check_usuario->query("SELECT username FROM USUARIOS WHERE username='$username'");
+    $check_usuario=$check_usuario->query("SELECT nombre_usuario FROM usuario WHERE nombre_usuario='$username'");
     if($check_usuario->rowCount()>0){
         echo '
             <div class="notification is-danger is-light">
@@ -94,7 +94,7 @@
 
     /*== Guardando datos ==*/
     $guardar_usuario=conexion();
-    $guardar_usuario=$guardar_usuario->prepare("INSERT INTO USUARIOS (username,nombre,apellido_pat,apellido_mat,contrasena,create_by,ip,privilegios) 
+    $guardar_usuario=$guardar_usuario->prepare("INSERT INTO usuario (nombre_usuario,nombre,apellido_pat,apellido_mat,contrasena,created_by,ip,privilegios) 
     VALUES (:username,:nombre,:apellido_pat,:apellido_mat,:contrasena,:create_by,:ip,:privilegios)");
 
     $marcadores=[
