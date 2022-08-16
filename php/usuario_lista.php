@@ -5,10 +5,11 @@ $tabla = "";
 if (isset($busqueda) && $busqueda != "") {
 
 	$consulta_datos = "SELECT * FROM usuario WHERE ((id_usuario!='" . $_SESSION['id'] . "') 
-		AND deleted = '0' AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR nombre_usuario LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%')) 
+		AND deleted = '0' AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%' OR privilegios LIKE '%$busqueda%')) 
 		ORDER BY nombre ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_usuario) FROM usuario WHERE ((id_usuario!='" . $_SESSION['id'] . "') AND deleted = '0' AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR nombre_usuario LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%'))";
+	$consulta_total = "SELECT COUNT(id_usuario) FROM usuario WHERE ((id_usuario!='" . $_SESSION['id'] . "') 
+	AND deleted = '0' AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%' OR privilegios LIKE '%$busqueda%')) ORDER BY nombre ASC LIMIT $inicio,$registros";
 } else {
 
 	$consulta_datos = "SELECT * FROM usuario WHERE id_usuario!='" . $_SESSION['id'] . "' AND deleted='0' ORDER BY nombre ASC LIMIT $inicio,$registros";

@@ -6,12 +6,12 @@
 
 		$consulta_datos = "SELECT * FROM usuario WHERE ((id_usuario!='" . $_SESSION['id'] . "') 
 			AND deleted = '1' AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' 
-			OR nombre_usuario LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%')) 
+			OR privilegios LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%')) 
 			ORDER BY nombre ASC LIMIT $inicio,$registros";
 	
 		$consulta_total = "SELECT COUNT(id_usuario) FROM usuario WHERE ((id_usuario!='" 
 		. $_SESSION['id'] . "') AND deleted = '1' AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE 
-		'%$busqueda%' OR nombre_usuario LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%'))";
+		'%$busqueda%' OR privilegios LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%'))";
 	} else {
 	
 		$consulta_datos = "SELECT * FROM usuario WHERE id_usuario!='" . $_SESSION['id'] 
