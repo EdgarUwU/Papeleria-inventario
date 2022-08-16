@@ -7,7 +7,7 @@
 
     /*== Verificando usuario ==*/
 	$check_usuario=conexion2();
-	$check_usuario=$check_usuario->query("SELECT * FROM USUARIOS WHERE id_usuario='$id' AND deleted='1'");
+	$check_usuario=$check_usuario->query("SELECT * FROM usuario WHERE id_usuario='$id' AND deleted='1'");
 
     if($check_usuario->rowCount()<=0){
     	echo '
@@ -24,7 +24,7 @@
 
     /*== Actualizar datos ==*/
     $actualizar_usuario=conexion();
-    $actualizar_usuario=$actualizar_usuario->prepare("UPDATE USUARIOS SET deleted=:deleted WHERE id_usuario=:id");
+    $actualizar_usuario=$actualizar_usuario->prepare("UPDATE usuario SET deleted=:deleted WHERE id_usuario=:id");
 
     $marcadores=[
         ':deleted'=>'0',

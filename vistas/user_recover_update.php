@@ -17,13 +17,18 @@
 
         /*== Verificando usuario ==*/
     	$check_usuario=conexion2();
-    	$check_usuario=$check_usuario->query("SELECT * FROM USUARIOS WHERE id_usuario='$id'");
+    	$check_usuario=$check_usuario->query("SELECT * FROM usuario WHERE id_usuario='$id'");
 
         if($check_usuario->rowCount()>0){
         	$datos=$check_usuario->fetch();
 	?>
 
 	<div class="form-rest mb-6 mt-6"></div>
+
+	<?php
+			echo '<center><img src="./img/user/user_default.jpg" class="image center" width="200px" height="auto" style="align-items: center;"></center>';
+
+		?>
 
 	<form action="./php/usuario_recover_actualizar.php" method="POST" class="FormularioAjax" autocomplete="off" >
 
@@ -53,7 +58,7 @@
 		  	<div class="column">
 		    	<div class="control">
 					<label>Usuario</label>
-				  	<input class="input" type="text" name="username" pattern="[a-zA-Z0-9]{4,20}" maxlength="20" required value="<?php echo $datos['username']; ?>" >
+				  	<input class="input" type="text" name="username" pattern="[a-zA-Z0-9]{4,20}" maxlength="20" required value="<?php echo $datos['nombre_usuario']; ?>" >
 				</div>
 		  	</div>
 		</div>
