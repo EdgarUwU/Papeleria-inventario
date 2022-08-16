@@ -82,6 +82,24 @@ $id = (isset($_GET['user_id_up'])) ? $_GET['user_id_up'] : 0;
 					</div>
 				</div>
 			</div>
+			<?php
+			if ($_SESSION['privilegios']=="admin"){
+				echo '<div class="column">
+				<div class="control">
+					<label>Permiso</label>
+					<span>*</span><br>
+					<div class="select is-rounded">
+						<select name="permiso_usuario">
+							<option value="" selected="">Seleccione una opción</option>
+							<option value="1">Administrador</option>
+							<option value="2">Normal</option>
+							<option value="3">Auditor</option>
+						</select>
+					</div>
+				</div>
+			</div>'
+			;}
+			?>
 			<br><br><br>
 			<p class="has-text-centered">
 				<button type="submit" class="button is-success is-rounded">Actualizar</button>
