@@ -83,7 +83,7 @@ $id = (isset($_GET['user_id_up'])) ? $_GET['user_id_up'] : 0;
 				</div>
 			</div>
 			<?php
-			if ($_SESSION['privilegios']=="admin"){
+			if ($_SESSION['privilegios']=="admin" && $id != $_SESSION['id']) {
 				echo '<div class="column">
 				<div class="control">
 					<label>Permiso</label>
