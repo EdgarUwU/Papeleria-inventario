@@ -85,7 +85,7 @@
 
         $pagina=limpiar_cadena($pagina);
         $url="index.php?vista=user_list_auditor&page=";
-        $registros=5;
+        $registros=8;
         $busqueda="";
 
         # Paginador usuario #

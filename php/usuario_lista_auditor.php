@@ -4,16 +4,18 @@ $tabla = "";
 
 if (isset($busqueda) && $busqueda != "") {
 
-	$consulta_datos = "SELECT * FROM USUARIOS WHERE ((id_usuario!='" . $_SESSION['id'] . "') 
-		AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR username LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%')) 
+	$consulta_datos = "SELECT * FROM usuario WHERE ((id_usuario!='" . $_SESSION['id'] . "') 
+		AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR privilegios LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%')) 
 		ORDER BY nombre ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_usuario) FROM USUARIOS WHERE ((id_usuario!='" . $_SESSION['id'] . "') AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR username LIKE '%$busqueda%' OR apellido_mat LIKE '%$busqueda%'))";
+	$consulta_total = "SELECT COUNT(id_usuario) FROM usuario WHERE ((id_usuario!='" . $_SESSION['id'] . "') 
+	AND (nombre LIKE '%$busqueda%' OR apellido_pat LIKE '%$busqueda%' OR privilegio LIKE '%$busqueda%' 
+	OR apellido_mat LIKE '%$busqueda%')) ORDER BY nombre ASC LIMIT $inicio,$registros";
 } else {
 
-	$consulta_datos = "SELECT * FROM USUARIOS WHERE id_usuario!='" . $_SESSION['id'] . "' ORDER BY nombre ASC LIMIT $inicio,$registros";
+	$consulta_datos = "SELECT * FROM usuario WHERE id_usuario!='" . $_SESSION['id'] . "' ORDER BY nombre ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_usuario) FROM USUARIOS WHERE id_usuario!='" . $_SESSION['id'] . "'  AND deleted='0'";
+	$consulta_total = "SELECT COUNT(id_usuario) FROM usuario WHERE id_usuario!='" . $_SESSION['id'] . "'  AND deleted='0'";
 }
 
 $conexion = conexion2();
@@ -32,26 +34,13 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 	foreach ($datos as $rows) {
 		$tabla .= '
 				<article class="media">
-				<figure class="media-left image is-128x128" >';
-		if (is_file("./img/user/" . $rows['foto'])) {
-			$tabla .= '<img src="./img/user/' . $rows['foto'] . '">';
-		} else {
-			$tabla .= '<img src="./img/user/user_default.jpg">';
-		}
+				<figure class="media-left image is-128x128" >
+				<img src="./img/user/user_default.jpg">';
 		$last_login = $rows['last_login'];
-		$last_ip = $rows['last_ip'];
         $estado = $rows['deleted'];
-        $modificado = $rows['modified'];
-        $modificado_por = $rows['modified_by'];
-		$creado_por = $conexion->query("SELECT * FROM USUARIOS WHERE id_usuario='" . $rows['create_by'] . "'");
-		$creado_por = $creado_por->fetch();
-		$creado_por = $creado_por['username'];
-		if ($modificado_por == "") {
-			$modificado_por = "No se ha modificado";
-		}
-		if ($last_ip == "") {
-			$last_ip = "No ha iniciado sesión";
-		}
+        $modificado = $rows['modify_date'];
+        $modificado_por = $rows['modify_by'];
+		$creado_por = $rows['created_by'];
 		if ($last_login == "") {
 			$last_login = "No ha iniciado sesión";
 		}else{
@@ -79,14 +68,14 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 			                <strong>' . $contador . ' - ' . $rows['nombre'] . ' ' 
                             . $rows['apellido_pat'] . ' ' . $rows['apellido_mat'] . ' ' . $estado . '</strong><br>
 			                <strong>Privilegio:</strong> ' . $rows['privilegios'] . ' 
-                            <strong>Username:</strong> ' . $rows['username'] . '
-                            <strong>Creado:</strong> ' . $rows['created'] . '
+                            <strong>Username:</strong> ' . $rows['nombre_usuario'] . '
+                            <strong>Creado:</strong> ' . $rows['created_date'] . '
 							<strong>Creado por:</strong> ' . $creado_por. '
                             <strong>Ultima modificación el:</strong> ' . $modificado . '<br>
                             <strong>Modificado por:</strong> ' . $modificado_por. '
                             <strong>Numero de inicio de sesión:</strong> ' . $rows['login_count'] . '
+							<strong>Creado desde la ip:</strong> ' . $rows['ip'] . '
 							<strong>Ultimo inicio de sesión:</strong> ' . $last_login . '
-							<strong>Ultima conexión desde IP:</strong> ' . $last_ip . '
 
 			              </p>
 			            </div>
@@ -115,7 +104,7 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 }
 
 if ($total > 0 && $pagina <= $Npaginas) {
-	$tabla .= '<p class="has-text-right">Mostrando productos <strong>' . $pag_inicio . '</strong> al <strong>' . $pag_final . '</strong> de un <strong>total de ' . $total . '</strong></p>';
+	$tabla .= '<p class="has-text-right">Mostrando usuarios <strong>' . $pag_inicio . '</strong> al <strong>' . $pag_final . '</strong> de un <strong>total de ' . $total . '</strong></p>';
 }
 
 $conexion = null;
