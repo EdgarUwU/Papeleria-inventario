@@ -1,0 +1,52 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  display: block;
+  width: 100%;
+  background-color: #f2f2f2;
+}
+.main-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo {
+  width: 75%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo2{
+  width: 100%;
+  height: auto;
+}
+.login {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  min-width: 300px;
+  background-color: #f2f2f2;
+}
+.main-container > .hero-body {
+  height: auto;
+  width: 100%;
+  max-width: 400px;
+  min-width: 300px;
+}
+
+.form-inline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.logo-login{
+  width: 100%;
+  height: auto;
+  align-items: center;
+}
