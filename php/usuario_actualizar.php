@@ -8,7 +8,7 @@
 
     /*== Verificando usuario ==*/
 	$check_usuario=conexion2();
-	$check_usuario=$check_usuario->query("SELECT * FROM USUARIOS WHERE id_usuario='$id' AND deleted='0'");
+	$check_usuario=$check_usuario->query("SELECT * FROM usuario WHERE id_usuario='$id' AND deleted='0'");
 
     if($check_usuario->rowCount()<=0){
     	echo '
@@ -33,6 +33,7 @@
 
     $contrasena=limpiar_cadena($_POST['contrasena']);
     $contrasena2=limpiar_cadena($_POST['contrasena2']);
+    $modified_by=limpiar_cadena($_SESSION['nombre']." ".$_SESSION['apellido_pat']." ".$_SESSION['apellido_mat']);
 
 
     /*== Verificando campos obligatorios del usuario ==*/
@@ -89,9 +90,9 @@
     
 
     /*== Verificando usuario ==*/
-    if($username!=$datos['username']){
+    if($username!=$datos['nombre_usuario']){
 	    $check_usuario=conexion2();
-	    $check_usuario=$check_usuario->query("SELECT username FROM USUARIOS WHERE username='$username' AND deleted = 0");
+	    $check_usuario=$check_usuario->query("SELECT nombre_usuario FROM usuario WHERE nombre_usuario='$username' AND deleted = 0");
 	    if($check_usuario->rowCount()>0){
 	        echo '
 	            <div class="notification is-danger is-light">
@@ -135,8 +136,8 @@
 
     /*== Actualizar datos ==*/
     $actualizar_usuario=conexion();
-    $actualizar_usuario=$actualizar_usuario->prepare("UPDATE USUARIOS SET username=:username,nombre=:nombre,apellido_pat=:apellido_pat,
-    apellido_mat=:apellido_mat,contrasena=:contrasena,modified=:modified,modified_by=:modified_by WHERE id_usuario=:id");
+    $actualizar_usuario=$actualizar_usuario->prepare("UPDATE usuario SET nombre_usuario=:username,nombre=:nombre,apellido_pat=:apellido_pat,
+    apellido_mat=:apellido_mat,contrasena=:contrasena,modify_date=:modified,modify_by=:modified_by WHERE id_usuario=:id");
 //gtm-6
     $marcadores_usuario=[
         ":nombre"=>$nombre,
@@ -146,7 +147,7 @@
         ":contrasena"=>$contrasena,
         ":id"=>$id,
         ":modified"=>gmdate("Y-m-d H:i:s",time()-18000),
-        ":modified_by"=>$_SESSION['id']
+        ":modified_by"=>$modified_by
     ];
 
     if($actualizar_usuario->execute($marcadores_usuario)){

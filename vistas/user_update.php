@@ -18,7 +18,7 @@ $id = (isset($_GET['user_id_up'])) ? $_GET['user_id_up'] : 0;
 
 	/*== Verificando usuario ==*/
 	$check_usuario = conexion2();
-	$check_usuario = $check_usuario->query("SELECT * FROM USUARIOS WHERE id_usuario='$id'");
+	$check_usuario = $check_usuario->query("SELECT * FROM usuario WHERE id_usuario='$id'");
 
 	if ($check_usuario->rowCount() > 0) {
 		$datos = $check_usuario->fetch();
@@ -28,11 +28,8 @@ $id = (isset($_GET['user_id_up'])) ? $_GET['user_id_up'] : 0;
 
 		
 		<?php
-		if ($datos['foto'] != "") {
-			echo '<center><img src="./img/user/' . $datos['foto'] . '" class="image center" width="200px" height="auto" style="align-items: center;"></center>';
-		} else {
 			echo '<center><img src="./img/user/user_default.jpg" class="image center" width="200px" height="auto" style="align-items: center;"></center>';
-		}
+
 		?>
 
 		<form action="./php/usuario_actualizar.php" method="POST" class="FormularioAjax" autocomplete="off">
@@ -65,7 +62,7 @@ $id = (isset($_GET['user_id_up'])) ? $_GET['user_id_up'] : 0;
 					<div class="control">
 						<label>Usuario</label>
 						<span>*</span>
-						<input class="input" type="text" name="username" pattern="[a-zA-Z0-9]{4,20}" maxlength="20" required value="<?php echo $datos['username']; ?>">
+						<input class="input" type="text" name="username" pattern="[a-zA-Z0-9]{4,20}" maxlength="20" required value="<?php echo $datos['nombre_usuario']; ?>">
 					</div>
 				</div>
 			</div>

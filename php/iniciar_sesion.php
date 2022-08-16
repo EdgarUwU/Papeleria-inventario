@@ -53,7 +53,7 @@ if (getenv('HTTP_CLIENT_IP')) {
 
 
 $check_user = conexion2();
-$check_user = $check_user->query("SELECT * FROM usuario WHERE nombre_usuario = '$username'");
+$check_user = $check_user->query("SELECT * FROM usuario WHERE nombre_usuario = '$username' AND deleted=0");
 if ($check_user->rowCount() == 1) {
 
     $check_user = $check_user->fetch();
@@ -75,12 +75,11 @@ if ($check_user->rowCount() == 1) {
         } else {
             header("Location: index.php?vista=home");
             $login_count=conexion();
-            $login_count=$login_count->prepare("UPDATE USUARIOS set login_count=login_count+1,
-                                                last_login=:last_login, last_ip=:ip where id_usuario=:id_usuario");
+            $login_count=$login_count->prepare("UPDATE usuario set login_count=login_count+1,
+                                                last_login=:last_login where id_usuario=:id_usuario");
                 $marcadores=[
                     ':id_usuario'=>$_SESSION['id'],
-                    ':ip'=>$ip,
-                    ':last_login'=>gmdate("Y-m-d H:i:s",time()-18000),
+                    ':last_login'=>gmdate("Y-m-d H:i:s",time()-18000)
                 ];
                 $login_count->execute($marcadores);
         }
@@ -96,7 +95,7 @@ if ($check_user->rowCount() == 1) {
     echo '
             <div class="notification is-danger is-light">
                 <strong>¡Ocurrio un error inesperado!</strong><br>
-                El usuario ingresado no existe
+                El usuario ingresado no existe o fue eliminado
             </div>
         ';
 }
