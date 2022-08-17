@@ -168,7 +168,7 @@ if ($_FILES['producto_foto']['name'] != "" && $_FILES['producto_foto']['size'] >
 
 /*== Guardando datos ==*/
 $guardar_producto = conexion();
-$guardar_producto = $guardar_producto->prepare("INSERT INTO PRODUCTO (nombre_prod,marca,presentacion,precio,created_by,foto) 
+$guardar_producto = $guardar_producto->prepare("INSERT INTO productos (marca,presentacion,precio,created_by,foto) 
                                                 VALUES(:nombre,:marca,:presentacion,:precio,:created_by,:foto)");
 
 $marcadores = [
