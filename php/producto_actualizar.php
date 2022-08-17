@@ -8,7 +8,7 @@
 
     /*== Verificando producto ==*/
 	$check_producto=conexion2();
-	$check_producto=$check_producto->query("SELECT * FROM PRODUCTO WHERE id_producto='$id'");
+	$check_producto=$check_producto->query("SELECT * FROM productos WHERE id_prod='$id'");
 
     if($check_producto->rowCount()<=0){
     	echo '
@@ -30,10 +30,13 @@
 	$marca=limpiar_cadena($_POST['producto_marca']);
     $stock=limpiar_cadena($_POST['producto_stock']);
 	$descripcion=limpiar_cadena($_POST['producto_descripcion']);
+    $codigo=limpiar_cadena($_POST['producto_codigo']);
+    $presentacion=limpiar_cadena($_POST['producto_presentacion']);
+    $modified_by=$_SESSION['nombre']." ".$_SESSION['apellido_pat']." ".$_SESSION['apellido_mat'];
 
 
 	/*== Verificando campos obligatorios ==*/
-    if($nombre=="" || $precio=="" || $marca=="" || $stock=="" || $descripcion==""){
+    if($nombre=="" || $precio=="" || $marca=="" || $stock=="" || $descripcion=="" || $codigo=="" || $presentacion==""){
         echo '
             <div class="notification is-danger is-light">
                 <strong>¡Ocurrio un error inesperado!</strong><br>
@@ -93,12 +96,30 @@
         ';
         exit();
     }
+    if(verificar_datos("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,$#\-\/ ]{1,70}",$codigo)){
+        echo '
+            <div class="notification is-danger is-light">
+                <strong>¡Ocurrio un error inesperado!</strong><br>
+                El CODIGO no coincide con el formato solicitado
+            </div>
+        ';
+        exit();
+    }
+    if(verificar_datos("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,$#\-\/ ]{1,70}",$presentacion)){
+        echo '
+            <div class="notification is-danger is-light">
+                <strong>¡Ocurrio un error inesperado!</strong><br>
+                La presentacion no coincide con el formato solicitado
+            </div>
+        ';
+        exit();
+    }
 
 
     /*== Verificando nombre ==*/
     if($nombre!=$datos['nombre_prod']){
 	    $check_nombre=conexion2();
-	    $check_nombre=$check_nombre->query("SELECT nombre_prod FROM PRODUCTO WHERE nombre_prod='$nombre' AND deleted='0'");
+	    $check_nombre=$check_nombre->query("SELECT nombre_prod FROM productos WHERE nombre_prod='$nombre' AND deleted='0'");
 	    if($check_nombre->rowCount()>0){
 	        echo '
 	            <div class="notification is-danger is-light">
@@ -114,29 +135,30 @@
 
     /*== Actualizando datos ==*/
     $actualizar_producto=conexion();
-    $actualizar_producto=$actualizar_producto->prepare("UPDATE PRODUCTO SET nombre_prod=:nombre,marca=:marca,precio=:precio,
-                                                        presentacion=:presentacion,modified=:modified,modified_by=:modified_by WHERE id_producto=:id");
+    $actualizar_producto=$actualizar_producto->prepare("UPDATE productos SET nombre_prod=:nombre,marca=:marca,precio=:precio,
+                                                        presentacion=:presentacion,cod_bar=:codigo,modify_date=:modify_date,modify_by=:modify_by WHERE id_prod=:id");
 
     $marcadores=[
         ":nombre"=>$nombre,
         ":marca"=>$marca,
         ":precio"=>$precio,
         ":presentacion"=>$descripcion,
-        ":modified"=>gmdate("Y-m-d H:i:s",time()-18000),
-        ":modified_by"=>$_SESSION['id'],
+        ":codigo"=>$codigo,
+        ":modify_date"=>gmdate("Y-m-d H:i:s",time()-18000),
+        ":modify_by"=>$modified_by,
         ":id"=>$id
     ];
 
 
     if($actualizar_producto->execute($marcadores)){
     $actualizar_stock=conexion();
-    $actualizar_stock=$actualizar_stock->prepare("UPDATE INVENTARIO SET stock=:stock,modified=:modified,
-                                                 modified_by=:modified_by WHERE id_producto=:id");
+    $actualizar_stock=$actualizar_stock->prepare("UPDATE inventario SET cantidad=:stock,modify_date=:modify_date,
+                                                 modify_by=:modify_by WHERE id_prod=:id");
 
     $marcadores_stock=[
         ":stock"=>$stock,
-        ":modified"=>gmdate("Y-m-d H:i:s",time()-18000),
-        ":modified_by"=>$_SESSION['id'],
+        ":modify_date"=>gmdate("Y-m-d H:i:s",time()-18000),
+        ":modify_by"=>$modified_by,
         ":id"=>$id
     ];
     $actualizar_stock->execute($marcadores_stock);

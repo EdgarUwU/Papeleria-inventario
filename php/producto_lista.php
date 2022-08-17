@@ -5,20 +5,20 @@ $tabla = "";
 
 if (isset($busqueda) && $busqueda != "") {
 
-	$consulta_datos = "SELECT * FROM PRODUCTO,INVENTARIO 
-	where PRODUCTO.id_producto=INVENTARIO.id_producto AND PRODUCTO.deleted='0' AND (PRODUCTO.nombre_prod 
-	LIKE '%$busqueda%' OR PRODUCTO.presentacion LIKE '%$busqueda%') ORDER BY PRODUCTO.nombre_prod ASC LIMIT $inicio,$registros";
+	$consulta_datos = "SELECT * FROM productos,inventario 
+	where productos.id_prod=inventario.id_prod AND productos.deleted='0' AND (productos.nombre_prod 
+	LIKE '%$busqueda%' OR productos.presentacion LIKE '%$busqueda%') ORDER BY productos.nombre_prod ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_producto) FROM PRODUCTO WHERE PRODUCTO.deleted='0' 
+	$consulta_total = "SELECT COUNT(id_prod) FROM productos WHERE productos.deleted='0' 
 	AND  nombre_prod LIKE '%$busqueda%' OR presentacion 
 	LIKE '%$busqueda%' ";
 } else {
 
-	$consulta_datos = "SELECT * FROM PRODUCTO,INVENTARIO 
-	where PRODUCTO.id_producto=INVENTARIO.id_producto AND PRODUCTO.deleted='0' 
+	$consulta_datos = "SELECT * FROM productos,inventario 
+	where productos.id_prod=inventario.id_prod AND productos.deleted='0' 
 	ORDER BY nombre_prod ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_producto) FROM PRODUCTO WHERE PRODUCTO.deleted='0'";
+	$consulta_total = "SELECT COUNT(id_prod) FROM productos WHERE productos.deleted='0'";
 }
 
 $conexion = conexion2();
@@ -50,13 +50,13 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 			                <strong>' . $contador . ' - ' . $rows['nombre_prod'] . '</strong><br>
 			                <strong>Precio:</strong> $' . $rows['precio'] . ' 
 							<strong>Marca:</strong> ' . $rows['marca'] . '
-							<strong>Stock:</strong> ' . $rows['stock'] . '
+							<strong>Stock:</strong> ' . $rows['cantidad'] . '
 							<strong>Descripción:</strong> ' . $rows['presentacion'] . '
 			              </p>
 			            </div>
 			            <div class="has-text-right">
-			                <a href="index.php?vista=product_update&product_id_up=' . $rows['id_producto'] . '" class="button is-success is-rounded is-small">Actualizar</a>
-			                <a href="' . $url . $pagina . '&product_id_del=' . $rows['id_producto'] . '" class="button is-danger is-rounded is-small">Eliminar</a>
+			                <a href="index.php?vista=product_update&product_id_up=' . $rows['id_prod'] . '" class="button is-success is-rounded is-small">Actualizar</a>
+			                <a href="' . $url . $pagina . '&product_id_del=' . $rows['id_prod'] . '" class="button is-danger is-rounded is-small">Eliminar</a>
 			            </div>
 			        </div>
 			    </article>

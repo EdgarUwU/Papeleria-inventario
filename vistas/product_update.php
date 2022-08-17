@@ -12,7 +12,7 @@
 
 		/*== Verificando producto ==*/
     	$check_producto=conexion2();
-    	$check_producto=$check_producto->query("SELECT * FROM PRODUCTO,INVENTARIO WHERE PRODUCTO.id_producto='$id'");
+    	$check_producto=$check_producto->query("SELECT * FROM productos,inventario WHERE productos.id_prod='$id'");
 
         if($check_producto->rowCount()>0){
         	$datos=$check_producto->fetch();
@@ -31,42 +31,63 @@
 
 	<form action="./php/producto_actualizar.php" method="POST" class="FormularioAjax" autocomplete="off" >
 
-		<input type="hidden" name="id_producto" value="<?php echo $datos['id_producto']; ?>" required >
+		<input type="hidden" name="id_producto" value="<?php echo $datos['id_prod']; ?>" required >
 
 		<form action="./php/producto_guardar.php" method="POST" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data" >
 		<div class="columns">
-		  	<div class="column">
-		    	<div class="control">
-					<label>Nombre</label>
-				  	<input class="input" type="text" name="producto_nombre" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,$#\-\/ ]{1,70}" maxlength="70" required value="<?php echo $datos['nombre_prod']; ?> ">
+			<div class="column">
+				<div class="control">
+					<label>Codigo</label>
+					<span>*</span>
+					<input class="input" type="text" name="producto_codigo" pattern="[0-9.]{1,25}" maxlength="25" value="<?php echo $datos['cod_bar']; ?>" required>
 				</div>
-		  	</div>
+			</div>
+			<div class="column">
+				<div class="control">
+					<label>Nombre</label>
+					<span>*</span>
+					<input class="input" type="text" name="producto_nombre" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,$#\-\/ ]{1,70}" maxlength="70" value="<?php echo $datos['nombre_prod']; ?>" required>
+				</div>
+			</div>
 		</div>
 		<div class="columns">
-		  	<div class="column">
-		    	<div class="control">
+			<div class="column">
+				<div class="control">
 					<label>Precio</label>
-				  	<input class="input" type="text" name="producto_precio" pattern="[0-9.]{1,25}" maxlength="25" required value="<?php echo $datos['precio']; ?>">
+					<span>*</span>
+					<input class="input" type="text" name="producto_precio" pattern="[0-9.]{1,25}" maxlength="25" value="<?php echo $datos['precio']; ?>" required>
 				</div>
-		  	</div>
-			  <div class="column">
-		    	<div class="control">
+			</div>
+			<div class="column">
+				<div class="control">
 					<label>Stock</label>
-				  	<input class="input" type="text" name="producto_stock" pattern="[0-9.]{1,25}" maxlength="25" required value="<?php echo $datos['stock']; ?>">
+					<span>*</span>
+					<input class="input" type="text" name="producto_stock" pattern="[0-9.]{1,25}" maxlength="25" value="<?php echo $datos['cantidad']; ?>" required>
 				</div>
-		  	</div>
-		  	<div class="column">
-			  <div class="control">
+			</div>
+			<div class="column">
+				<div class="control">
 					<label>Marca</label>
-				  	<input class="input" type="text" name="producto_marca" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,$#\-\/ ]{1,70}" maxlength="70" required value="<?php echo $datos['marca']; ?>">
+					<span>*</span>
+					<input class="input" type="text" name="producto_marca" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,$#\-\/ ]{1,70}" maxlength="70" value="<?php echo $datos['marca']; ?>" required>
 				</div>
-		  	</div>
-		  	<div class="column">
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column">
 				<div class="control">
 					<label>Descripción</label>
-				  	<textarea class="textarea" name="producto_descripcion" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,$#\-\/ ]{1,500}" maxlength="500" required value="<?php echo $datos['presentacion']; ?>"></textarea>
+					<span>*</span>
+					<input class="input" type="text" name="producto_descripcion" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,$#\-\/ ]{1,70}" maxlength="70" value="<?php echo $datos['descripcion']; ?>" required>
 				</div>
-		  	</div>
+			</div>
+			<div class="column">
+				<div class="control">
+					<labes>Presentación</labes>
+					<span>*</span>
+					<textarea class="textarea" name="producto_presentacion" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,$#\-\/ ]{1,500}" maxlength="500"  required> <?php echo htmlspecialchars($datos['presentacion']);?></textarea>
+				</div>
+			</div>
 		</div>
 		<p class="has-text-centered pt-6">
 			<button type="submit" class="button is-success is-rounded">Actualizar</button>
