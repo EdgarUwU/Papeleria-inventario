@@ -11,7 +11,7 @@ $id = (isset($_GET['product_id_up'])) ? $_GET['product_id_up'] : 0;
 
 /*== Verificando producto ==*/
 $check_producto=conexion2();
-$check_producto=$check_producto->query("SELECT * FROM productos,inventario WHERE productos.id_prod='$id'");
+$check_producto=$check_producto->query("SELECT * FROM productos,inventario WHERE productos.id_prod='$id' AND inventario.id_prod='$id'");
 
 if($check_producto->rowCount()>0){
     $datos=$check_producto->fetch();
@@ -20,46 +20,46 @@ if($check_producto->rowCount()>0){
     <div class="form-rest"></div>
     <?php
 		if ($datos['foto'] != "") {
-			echo '<center><img src="./img/producto/' . $datos['foto'] . '" class="image center" width="200px" height="auto" style="align-items: center;"></center>';
+			echo '<center><img src="./img/producto/' . $datos['foto'] . '" class="image center" width="150px" height="auto" style="align-items: center;"></center>';
 		} else {
-			echo '<center><img src="./img/producto/producto.png" class="image center" width="200px" height="auto" style="align-items: center;"></center>';
+			echo '<center><img src="./img/producto/producto.png" class="image center" width="150px" height="auto" style="align-items: center;"></center>';
 		}
 	?>
 
-    <form action="./php/usuario_guardar.php" method="POST" class="FormularioAjax" autocomplete="off">
-        <div class="columns">
+    <form action="./php/movimiento_guardar.php" method="POST" class="FormularioAjax" autocomplete="off">
+        <div class="columns mt-5">
             <div class="column">
-                <div class="control">
+                <div class="control mr-6">
                     <label>Cantidad</label>
                     <span>*</span>
-                    <input class="input" type="text" name="nombre" maxlength="45" pattern="{1,500}" required>
+                    <input class="input" type="text" name="cantidad" maxlength="45" placeholder="<?php echo 'Discponible: ' . $datos['cantidad'];?>" required>
                 </div>
             </div>
             <div class="column ml-6">
                 <div class="control">
                     <label>Fecha</label>
                     <span>*</span><br>
-                    <input type="date" value=<?php echo date("Y-m-d")?> require />
+                    <input type="date" name="fecha" value=<?php echo date("Y-m-d")?> require />
                 </div>
             </div>
-            <div class="column ml-6">
+            <div class="column">
 				<div class="control">
-					<labes>Descripción</labes>
+					<labes>Motivo</labes>
 					<span>*</span>
-				  	<textarea class="textarea" name="producto_descripcion" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,$#\-\/ ]{1,500}" maxlength="100" required ></textarea>
+					<textarea class="textarea" name="motivo" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,$#\-\/ ]{1,500}" maxlength="500" required></textarea>
 				</div>
-		  	</div>
+			</div>
         </div>
         <div class="column">
             <div class="control">
                 <label>Tipo de Movimiento</label>
                 <span>*</span><br>
                 <div class="select is-rounded">
-                    <select name="permiso_usuario" require>
+                    <select name="tipo" require>
                         <option value="" selected="">Seleccione una opción</option>
                         <option value="1">Venta</option>
-                        <option value="2">Compra</option>
-                        <option value="3">Merma</option>
+                        <option value="2">Ingreso</option>
+                        <option value="3">Perdida</option>
                     </select>
                 </div>
             </div>
