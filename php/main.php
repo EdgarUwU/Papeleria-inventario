@@ -2,11 +2,11 @@
 	
 	# Conexion a la base de datos #
 	function conexion(){
-		$pdo = new PDO('mysql:host=localhost;dbname=papeleria', 'root', 'root');
+		$pdo = new PDO('mysql:host=localhost;dbname=papeleria', 'root', 'Alapastrucka1#_');
 		return $pdo;
 	}
 	function conexion2(){
-		$pdo = new PDO('mysql:host=localhost;dbname=papeleria', 'root', 'root');
+		$pdo = new PDO('mysql:host=localhost;dbname=papeleria', 'root', 'Alapastrucka1#_');
 		return $pdo;
 	}
 
