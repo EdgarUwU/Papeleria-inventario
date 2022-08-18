@@ -4,28 +4,25 @@
 
     /*== Verificando producto ==*/
     $check_producto=conexion2();
-    $check_producto=$check_producto->query("SELECT id_prod FROM productos WHERE productos.id_prod='$product_id_del'");
+    $check_producto=$check_producto->query("SELECT id_prod FROM productos WHERE id_prod='$product_id_del'");
 
     if($check_producto->rowCount()==1){
 
     	$eliminar_producto=conexion();
-		$eliminar_producto=$eliminar_producto->prepare("UPDATE productos SET deleted=:deleted WHERE id_prod=:id");
+		$eliminar_producto=$eliminar_producto->prepare("DELETE FROM productos WHERE id_prod= :id");
+		$marcadores=[
+			":id"=>$product_id_del
+		];
+		$eliminar_inventario=conexion();
+		$eliminar_inventario=$eliminar_inventario->prepare("DELETE FROM inventario WHERE id_prod=:id");
 		$marcadores=[
 			":id"=>$product_id_del,
-			":deleted"=>"1"
 		];
-
+		$eliminar_inventario->execute(($marcadores));
 		$eliminar_producto->execute(($marcadores));
 
-    	if($eliminar_producto->rowCount()==1){
 
-			$eliminar_inventario=conexion();
-			$eliminar_inventario=$eliminar_inventario->prepare("UPDATE inventario SET deleted=:deleted WHERE id_prod=:id");
-			$marcadores=[
-				":id"=>$product_id_del,
-				":deleted"=>"1"
-			];
-			$eliminar_inventario->execute(($marcadores));
+    	if($eliminar_producto->rowCount()==1){
 
 	        echo '
 	            <div class="notification is-info is-light">

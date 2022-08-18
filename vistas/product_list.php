@@ -41,7 +41,7 @@
     </div>
     <?php
             # Eliminar producto #
-            if(isset($_GET['user_id_del'])){
+            if(isset($_GET['product_id_del'])){
                 require_once "./php/producto_eliminar.php";
             }
 
@@ -55,8 +55,8 @@
             }
 
             $pagina=limpiar_cadena($pagina);
-            $url="index.php?vista=user_list&page="; /* <== */
-            $registros=5;
+            $url="index.php?vista=product_list&page="; /* <== */
+            $registros=8;
             $busqueda=$_SESSION['busqueda_producto']; /* <== */
 
             # Paginador producto #
@@ -70,7 +70,7 @@
         require_once "./php/main.php";
 
         # Eliminar producto #
-        if(isset($_GET['user_id_del'])){
+        if(isset($_GET['product_id_del'])){
             require_once "./php/producto_eliminar.php";
         }
 
@@ -84,8 +84,8 @@
         }
 
         $pagina=limpiar_cadena($pagina);
-        $url="index.php?vista=user_list&page=";
-        $registros=5;
+        $url="index.php?vista=product_list&page=";
+        $registros=8;
         $busqueda="";
 
         # Paginador producto #

@@ -1,28 +1,27 @@
 <?php
-$inicio = ($pagina > 0) ? (($pagina * $registros) - $registros) : 0;
-$tabla = "";
+	$inicio = ($pagina>0) ? (($pagina * $registros)-$registros) : 0;
+	$tabla="";
 
+	if (isset($busqueda) && $busqueda != "") {
 
-if (isset($busqueda) && $busqueda != "") {
+		$consulta_datos = "SELECT * FROM productos,inventario 
+		where productos.id_prod=inventario.id_prod AND productos.deleted='1' AND (productos.nombre_prod 
+		LIKE '%$busqueda%' OR productos.presentacion LIKE '%$busqueda%' OR productos.marca LIKE '%$busqueda%') ORDER BY productos.nombre_prod ASC LIMIT $inicio,$registros";
+	
+		$consulta_total = "SELECT COUNT(id_prod) FROM productos WHERE productos.deleted='1' 
+		AND  nombre_prod LIKE '%$busqueda%' OR presentacion OR marca LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%' ORDER BY productos.nombre_prod ASC";
+		"; 
+		LIKE '%$busqueda%' ";
+	} else {
+	
+		$consulta_datos = "SELECT * FROM productos,inventario 
+		where productos.id_prod=inventario.id_prod AND productos.deleted='1' 
+		ORDER BY nombre_prod ASC LIMIT $inicio,$registros";
+	
+		$consulta_total = "SELECT COUNT(id_prod) FROM productos WHERE productos.deleted='1'";
+	}
 
-	$consulta_datos = "SELECT * FROM productos,inventario 
-	where productos.id_prod=inventario.id_prod AND productos.deleted='0' AND (productos.nombre_prod 
-	LIKE '%$busqueda%' OR productos.presentacion LIKE '%$busqueda%' OR productos.marca LIKE '%$busqueda%') ORDER BY productos.nombre_prod ASC LIMIT $inicio,$registros";
-
-	$consulta_total = "SELECT COUNT(id_prod) FROM productos WHERE productos.deleted='0' 
-	AND  nombre_prod LIKE '%$busqueda%' OR presentacion OR marca LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%' ORDER BY productos.nombre_prod ASC";
-	"; 
-	LIKE '%$busqueda%' ";
-} else {
-
-	$consulta_datos = "SELECT * FROM productos,inventario 
-	where productos.id_prod=inventario.id_prod AND productos.deleted='0' 
-	ORDER BY nombre_prod ASC LIMIT $inicio,$registros";
-
-	$consulta_total = "SELECT COUNT(id_prod) FROM productos WHERE productos.deleted='0'";
-}
-
-$conexion = conexion2();
+	$conexion = conexion2();
 
 $datos = $conexion->query($consulta_datos);
 $datos = $datos->fetchAll();
@@ -61,8 +60,8 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 							</p>
 			            </div>
 			            <div class="has-text-right">
-			                <a href="index.php?vista=product_update&product_id_up=' . $rows['id_prod'] . '" class="button is-success is-rounded is-small">Actualizar</a>
-							<a href="'.$url.$pagina.'&product_id_del='.$rows['id_prod'].'" class="button is-danger is-rounded is-small">Eliminar</a>
+			                <a href="index.php?vista=product_recover_update&product_id_up=' . $rows['id_prod'] . '" class="button is-success is-rounded is-small">Recuperar</a>
+							<a href="'.$url.$pagina.'&product_id_del='.$rows['id_prod'].'" class="button is-danger is-rounded is-small">Eliminar permanentemente</a>
 			            </div>
 			        </div>
 			    </article>

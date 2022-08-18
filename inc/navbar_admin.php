@@ -37,6 +37,7 @@
                 <div class="navbar-dropdown">
                     <a href="index.php?vista=product_list" class="navbar-item">Lista</a>
                     <a href="index.php?vista=product_new" class="navbar-item">Nuevo</a>
+                    <a href="index.php?vista=product_recover" class="navbar-item">Recuperar Productos</a>
                 </div>
             </div>
 

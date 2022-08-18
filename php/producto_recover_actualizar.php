@@ -136,7 +136,7 @@
     /*== Actualizando datos ==*/
     $actualizar_producto=conexion();
     $actualizar_producto=$actualizar_producto->prepare("UPDATE productos SET nombre_prod=:nombre,marca=:marca,precio=:precio,
-                                                        descripcion=:descripcion,presentacion=:presentacion,cod_bar=:codigo,modify_date=:modify_date,modify_by=:modify_by WHERE id_prod=:id");
+                                                        descripcion=:descripcion,presentacion=:presentacion,cod_bar=:codigo,modify_date=:modify_date,modify_by=:modify_by,deleted=:deleted WHERE id_prod=:id");
 
     $marcadores=[
         ":nombre"=>$nombre,
@@ -147,6 +147,7 @@
         ":codigo"=>$codigo,
         ":modify_date"=>gmdate("Y-m-d H:i:s",time()-18000),
         ":modify_by"=>$modified_by,
+        ":deleted"=>'0',
         ":id"=>$id
     ];
 
@@ -154,12 +155,13 @@
     if($actualizar_producto->execute($marcadores)){
     $actualizar_stock=conexion();
     $actualizar_stock=$actualizar_stock->prepare("UPDATE inventario SET cantidad=:stock,modify_date=:modify_date,
-                                                 modify_by=:modify_by WHERE id_prod=:id");
+                                                 modify_by=:modify_by,deleted=:deleted WHERE id_prod=:id");
 
     $marcadores_stock=[
         ":stock"=>$stock,
         ":modify_date"=>gmdate("Y-m-d H:i:s",time()-18000),
         ":modify_by"=>$modified_by,
+        ":deleted"=>'0',
         ":id"=>$id
     ];
     $actualizar_stock->execute($marcadores_stock);

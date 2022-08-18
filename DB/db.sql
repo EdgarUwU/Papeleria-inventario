@@ -124,3 +124,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO `USUARIOS` (`username`,nombre, `apellido_pat`, `apellido_mat`, `contrasena`, `create_by`,ip,privilegios) VALUES
+('Administrador', 'Edgar', 'Escobedo','Nevárez', '$2y$10$EPY9LSLOFLDDBriuJICmFOqmZdnDXxLJG8YFbog5LcExp77DBQvgC', '1','192.168.127.66','1');
+
