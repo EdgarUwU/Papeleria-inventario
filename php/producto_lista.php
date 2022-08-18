@@ -6,11 +6,11 @@ $tabla = "";
 if (isset($busqueda) && $busqueda != "") {
 
 	$consulta_datos = "SELECT * FROM productos,inventario 
-	where productos.id_prod=inventario.id_prod AND productos.deleted='0' AND (productos.nombre_prod 
-	LIKE '%$busqueda%' OR productos.presentacion LIKE '%$busqueda%') ORDER BY productos.nombre_prod ASC LIMIT $inicio,$registros";
+	where productos.id_prod=inventario.id_prod AND (productos.deleted='0' OR productos.nombre_prod 
+	LIKE '%$busqueda%' OR productos.presentacion LIKE '%$busqueda%' OR productos.marca LIKE '%$busqueda%') ORDER BY productos.nombre_prod ASC LIMIT $inicio,$registros";
 
 	$consulta_total = "SELECT COUNT(id_prod) FROM productos WHERE productos.deleted='0' 
-	AND  nombre_prod LIKE '%$busqueda%' OR presentacion 
+	AND  nombre_prod LIKE '%$busqueda%' OR presentacion OR marca LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%' ORDER BY productos.nombre_prod ASC";"; 
 	LIKE '%$busqueda%' ";
 } else {
 
@@ -47,12 +47,13 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 			        <div class="media-content">
 			            <div class="content">
 			              <p>
-			                <strong>' . $contador . ' - ' . $rows['nombre_prod'] . '</strong><br>
+			                <h4>' . $contador . ' - ' . $rows['nombre_prod'] . '</h4><br>
 			                <strong>Precio:</strong> $' . $rows['precio'] . ' 
 							<strong>Marca:</strong> ' . $rows['marca'] . '
 							<strong>Stock:</strong> ' . $rows['cantidad'] . '
-							<strong>Descripción:</strong> ' . $rows['presentacion'] . '
-			              </p>
+							<strong>Descripción:</strong> ' . $rows['descripcion'] . '
+							<strong>Presentación:</strong> ' . $rows['presentacion'] . '			              
+							</p>
 			            </div>
 			            <div class="has-text-right">
 			                <a href="index.php?vista=product_update&product_id_up=' . $rows['id_prod'] . '" class="button is-success is-rounded is-small">Actualizar</a>
