@@ -56,7 +56,7 @@
 
             $pagina=limpiar_cadena($pagina);
             $url="index.php?vista=movimientos_list&page="; /* <== */
-            $registros=5;
+            $registros=8;
             $busqueda=$_SESSION['busqueda_movimiento']; /* <== */
 
             # Paginador usuario #
@@ -85,7 +85,7 @@
 
         $pagina=limpiar_cadena($pagina);
         $url="index.php?vista=movimientos_list&page=";
-        $registros=5;
+        $registros=8;
         $busqueda="";
 
         # Paginador usuario #

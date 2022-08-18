@@ -5,21 +5,21 @@ $tabla = "";
 
 if (isset($busqueda) && $busqueda != "") {
 
-	$consulta_datos = "SELECT * FROM MOVIMIENTO,INVENTARIO 
-	where MOVIMIENTO.id_inventario=INVENTARIO.id_inventario AND deleted='0' AND (MOVIMIENTO.tipo 
-	LIKE '%$busqueda%' OR MOVIMIENTO.cantidad LIKE '%$busqueda%' OR MOVIMIENTO.descripcion LIKE '%$busqueda%') ORDER BY PRODUCTO.nombre_prod 
+	$consulta_datos = "SELECT * FROM movimientos,inventario,productos 
+	where movimientos.id_inventario=inventario.id_inventario AND movimientos.deleted='0' AND (movimientos.tipo 
+	LIKE '%$busqueda%' OR movimientos.cantidad LIKE '%$busqueda%' OR movimientos.descripcion LIKE '%$busqueda%') ORDER BY PRODUCTO.nombre_prod 
     ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_movimiento) FROM MOVIMIENTO WHERE deleted='0' 
+	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE movimientos.deleted='0' 
 	AND  tipo LIKE '%$busqueda%' OR descripcion 
 	LIKE '%$busqueda%' ";
 } else {
 
-	$consulta_datos = "SELECT * FROM MOVIMIENTO,INVENTARIO 
-	where MOVIMIENTO.id_inventario=INVENTARIO.id_inventario AND deleted='0' 
+	$consulta_datos = "SELECT * FROM movimientos,inventario,productos 
+	where movimientos.id_inventario=inventario.id_inventario AND movimientos.deleted='0' 
 	ORDER BY fecha ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_movimiento) FROM MOVIMIENTO WHERE deleted='0'";
+	$consulta_total = "SELECT COUNT(Id_movimientos) FROM movimientos WHERE movimientos.deleted='0'";
 }
 
 $conexion = conexion2();
@@ -57,8 +57,8 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 			              </p>
 			            </div>
 			            <div class="has-text-right">
-			                <a href="index.php?vista=product_update&product_id_up=' . $rows['id_movimiento'] . '" class="button is-success is-rounded is-small">Actualizar</a>
-			                <a href="' . $url . $pagina . '&product_id_del=' . $rows['id_movimiento'] . '" class="button is-danger is-rounded is-small">Eliminar</a>
+			                <a href="index.php?vista=product_update&product_id_up=' . $rows['id_movimientos'] . '" class="button is-success is-rounded is-small">Actualizar</a>
+			                <a href="' . $url . $pagina . '&product_id_del=' . $rows['id_movimientos'] . '" class="button is-danger is-rounded is-small">Eliminar</a>
 			            </div>
 			        </div>
 			    </article>
