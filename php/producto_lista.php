@@ -10,7 +10,8 @@ if (isset($busqueda) && $busqueda != "") {
 	LIKE '%$busqueda%' OR productos.presentacion LIKE '%$busqueda%' OR productos.marca LIKE '%$busqueda%') ORDER BY productos.nombre_prod ASC LIMIT $inicio,$registros";
 
 	$consulta_total = "SELECT COUNT(id_prod) FROM productos WHERE productos.deleted='0' 
-	AND  nombre_prod LIKE '%$busqueda%' OR presentacion OR marca LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%' ORDER BY productos.nombre_prod ASC";"; 
+	AND  nombre_prod LIKE '%$busqueda%' OR presentacion OR marca LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%' ORDER BY productos.nombre_prod ASC";
+	"; 
 	LIKE '%$busqueda%' ";
 } else {
 
@@ -39,9 +40,13 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 				<article class="media">
 			        <figure class="media-left image is-128x128" >';
 		if (is_file("./img/producto/" . $rows['foto'])) {
-			$tabla .= '<img src="./img/producto/' . $rows['foto'] . '"/>';
+			$tabla .= ' <a href="index.php?vista=movimiento_new&product_id_up=' . $rows['id_prod'] . '">
+					<img src="./img/producto/' . $rows['foto'] . '"/>
+					</a>';
 		} else {
-			$tabla .= '<img src="./img/producto.png">';
+			$tabla .= '<a href="index.php?vista=movimiento_new&product_id_up=' . $rows['id_prod'] . '">
+					<img src="./img/producto.png">
+					</a>';
 		}
 		$tabla .= '</figure>
 			        <div class="media-content">
