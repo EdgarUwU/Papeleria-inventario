@@ -1,8 +1,7 @@
 <div class="container is-fluid mb-6">
-    <h1 class="title">Productos</h1>
-    <h2 class="subtitle">Lista de productos</h2>
+    <h1 class="title">Movimientos</h1>
+    <h2 class="subtitle">Lista de movimientos</h2>
 </div>
-
 <div class="container pb-6">
     <?php
         require_once "./php/main.php";
@@ -11,12 +10,12 @@
             require_once "./php/buscador.php";
         }
 
-        if(!isset($_SESSION['busqueda_producto_auditor']) && empty($_SESSION['busqueda_producto_auditor'])){
+        if(!isset($_SESSION['busqueda_movimientos_auditor']) && empty($_SESSION['busqueda_movimientos_auditor'])){
     ?>
     <div class="columns">
         <div class="column">
             <form action="" method="POST" autocomplete="off" >
-                <input type="hidden" name="modulo_buscador" value="producto_auditor">
+                <input type="hidden" name="modulo_buscador" value="movimientos_auditor">   
                 <div class="field is-grouped">
                     <p class="control is-expanded">
                         <input class="input is-rounded" type="text" name="txt_buscador" placeholder="¿Qué estas buscando?" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}" maxlength="30" >
@@ -32,9 +31,9 @@
     <div class="columns">
         <div class="column">
             <form class="has-text-centered mt-6 mb-6" action="" method="POST" autocomplete="off" >
-                <input type="hidden" name="modulo_buscador" value="producto_auditor"> 
-                <input type="hidden" name="eliminar_buscador" value="producto_auditor">
-                <p>Estas buscando <strong>“<?php echo $_SESSION['busqueda_producto_auditor']; ?>”</strong></p>
+                <input type="hidden" name="modulo_buscador" value="movimientos_auditor"> 
+                <input type="hidden" name="eliminar_buscador" value="movimientos_auditor">
+                <p>Estas buscando <strong>“<?php echo $_SESSION['busqueda_movimientos_auditor']; ?>”</strong></p>
                 <br>
                 <button type="submit" class="button is-danger is-rounded">Eliminar busqueda</button>
             </form>
@@ -42,8 +41,8 @@
     </div>
     <?php
             # Eliminar usuario #
-            if(isset($_GET['product_id_del'])){
-                require_once "./php/producto_eliminar.php";
+            if(isset($_GET['user_id_del'])){
+                require_once "./php/movimientos_eliminar.php";
             }
 
             if(!isset($_GET['page'])){
@@ -56,12 +55,12 @@
             }
 
             $pagina=limpiar_cadena($pagina);
-            $url="index.php?vista=product_list&page="; /* <== */
+            $url="index.php?vista=movimientos_list&page="; /* <== */
             $registros=8;
-            $busqueda=$_SESSION['busqueda_producto_auditor']; /* <== */
+            $busqueda=$_SESSION['busqueda_movimientos_auditor']; /* <== */
 
             # Paginador usuario #
-            require_once "./php/producto_lista_auditor.php";
+            require_once "./php/movimientos_lista_auditor.php";
         } 
     ?>
 </div>
@@ -71,8 +70,8 @@
         require_once "./php/main.php";
 
         # Eliminar usuario #
-        if(isset($_GET['product_id_del'])){
-            require_once "./php/prducto_eliminar.php";
+        if(isset($_GET['user_id_del'])){
+            require_once "./php/movimientos_eliminar.php";
         }
 
         if(!isset($_GET['page'])){
@@ -85,11 +84,11 @@
         }
 
         $pagina=limpiar_cadena($pagina);
-        $url="index.php?vista=product_list&page=";
+        $url="index.php?vista=movimientos_list&page=";
         $registros=8;
         $busqueda="";
 
         # Paginador usuario #
-        require_once "./php/producto_lista_auditor.php";
+        require_once "./php/movimientos_lista_auditor.php";
     ?>
 </div>
