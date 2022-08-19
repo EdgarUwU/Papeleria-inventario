@@ -73,7 +73,7 @@ $check_cantidad = $check_cantidad->prepare("SELECT cantidad FROM inventario WHER
 $check_cantidad->execute();
 $cantidad_inventario = $check_cantidad->fetch();
 
-if (intval($cantidad) > $cantidad_inventario['cantidad']) {
+if (intval($cantidad) > $cantidad_inventario['cantidad'] && $tipo == "1" && $tipo == "3") {
     echo '
             <div class="notification is-danger is-light">
                 <strong>¡Ocurrio un error inesperado!</strong><br>

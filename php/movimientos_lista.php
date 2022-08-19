@@ -51,9 +51,9 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 			            <div class="content">
 			              <p>
 			                <strong>' . $contador . ' - ' . $rows['tipo'] . '</strong><br>
-			                <strong>Cantidad:</strong> $' . $rows['cantidad'] . ' 
+			                <strong>Cantidad:</strong> ' . $rows['cantidad'] . ' 
 							<strong>Fecha:</strong> ' . $rows['fecha'] . '
-							<strong>Descripción:</strong> ' . $rows['descripcion'] . '
+							<strong>Motivo:</strong> ' . $rows['descripcion'] . '
 			              </p>
 			            </div>
 			            <div class="has-text-right">
