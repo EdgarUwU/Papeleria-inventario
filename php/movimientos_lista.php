@@ -7,11 +7,11 @@ if (isset($busqueda) && $busqueda != "") {
 
 	$consulta_datos = "SELECT * FROM movimientos,inventario,productos 
 	where movimientos.id_inventario=inventario.id_inventario AND movimientos.deleted='0' AND (movimientos.tipo 
-	LIKE '%$busqueda%' OR movimientos.cantidad LIKE '%$busqueda%' OR movimientos.descripcion LIKE '%$busqueda%') ORDER BY PRODUCTO.nombre_prod 
+	LIKE '%$busqueda%' OR movimientos.cantidad LIKE '%$busqueda%' OR movimientos.descripcion LIKE '%$busqueda%') ORDER BY movimientos.tipo 
     ASC LIMIT $inicio,$registros";
 
 	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE movimientos.deleted='0' 
-	AND  tipo LIKE '%$busqueda%' OR descripcion 
+	AND  tipo LIKE '%$busqueda%' OR motivo 
 	LIKE '%$busqueda%' ";
 } else {
 
@@ -19,7 +19,7 @@ if (isset($busqueda) && $busqueda != "") {
 	where movimientos.id_inventario=inventario.id_inventario AND movimientos.deleted='0' 
 	ORDER BY fecha ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(Id_movimientos) FROM movimientos WHERE movimientos.deleted='0'";
+	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE movimientos.deleted='0'";
 }
 
 $conexion = conexion2();

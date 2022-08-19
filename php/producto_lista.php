@@ -40,11 +40,11 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 				<article class="media">
 			        <figure class="media-left image is-128x128" >';
 		if (is_file("./img/producto/" . $rows['foto'])) {
-			$tabla .= ' <a href="index.php?vista=movimiento_new&product_id_up=' . $rows['id_prod'] . '">
+			$tabla .= ' <a href="index.php?vista=movimiento_new&movimiento_id_add=' . $rows['id_prod'] . '">
 					<img src="./img/producto/' . $rows['foto'] . '"/>
 					</a>';
 		} else {
-			$tabla .= '<a href="index.php?vista=movimiento_new&product_id_up=' . $rows['id_prod'] . '">
+			$tabla .= '<a href="index.php?vista=movimiento_new&movimiento_id_add=' . $rows['id_prod'] . '">
 					<img src="./img/producto.png">
 					</a>';
 		}

@@ -10,7 +10,7 @@
             require_once "./php/buscador.php";
         }
 
-        if(!isset($_SESSION['movimiento_busqueda']) && empty($_SESSION['movimiento_busqueda'])){
+        if(!isset($_SESSION['busqueda_movimientos']) && empty($_SESSION['busqueda_movimientos'])){
     ?>
     <div class="columns">
         <div class="column">
@@ -33,7 +33,7 @@
             <form class="has-text-centered mt-6 mb-6" action="" method="POST" autocomplete="off" >
                 <input type="hidden" name="modulo_buscador" value="movimiento"> 
                 <input type="hidden" name="eliminar_buscador" value="movimiento">
-                <p>Estas buscando <strong>“<?php echo $_SESSION['movimiento']; ?>”</strong></p>
+                <p>Estas buscando <strong>“<?php echo $_SESSION['busqueda_movimientos']; ?>”</strong></p>
                 <br>
                 <button type="submit" class="button is-danger is-rounded">Eliminar busqueda</button>
             </form>
@@ -70,7 +70,7 @@
         require_once "./php/main.php";
 
         # Eliminar usuario #
-        if(isset($_GET['user_id_del'])){
+        if(isset($_GET['movimiento_id_del'])){
             require_once "./php/movimientos_eliminar.php";
         }
 

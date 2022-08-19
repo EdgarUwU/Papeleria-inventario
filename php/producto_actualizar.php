@@ -3,7 +3,7 @@
     require_once "../inc/session_start.php";
 
 	/*== Almacenando id ==*/
-    $id=limpiar_cadena($_POST['id_producto']);
+    $id=limpiar_cadena($_POST['id_prod']);
 
 
     /*== Verificando producto ==*/

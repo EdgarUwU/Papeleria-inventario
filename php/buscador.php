@@ -1,7 +1,7 @@
 <?php
 	$modulo_buscador=limpiar_cadena($_POST['modulo_buscador']);
 
-	$modulos=["usuario","usuario_auditor","usuario_recover","movimiento","producto","producto_auditor","producto_recover","busqueda_movimiento"];
+	$modulos=["usuario","usuario_auditor","usuario_recover","movimiento","producto","producto_auditor","producto_recover"];
 
 	if(in_array($modulo_buscador, $modulos)){
 		
@@ -12,8 +12,7 @@
 			"movimiento"=>"movimientos_list",
 			"producto"=>"product_list",
 			"producto_recover"=>"product_recover",
-			"producto_auditor"=>"product_list_auditor",
-			"movimiento"=>"movimientos_list"
+			"producto_auditor"=>"product_list_auditor"
 		];
 
 		$modulos_url=$modulos_url[$modulo_buscador];

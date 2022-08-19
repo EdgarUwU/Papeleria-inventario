@@ -12,7 +12,7 @@
 
 		/*== Verificando producto ==*/
     	$check_producto=conexion2();
-    	$check_producto=$check_producto->query("SELECT * FROM productos,inventario WHERE productos.id_prod='$id'");
+    	$check_producto=$check_producto->query("SELECT * FROM productos a LEFT JOIN inventario b ON a.id_prod=b.id_prod WHERE a.id_prod='$id'");
 
         if($check_producto->rowCount()>0){
         	$datos=$check_producto->fetch();
@@ -31,7 +31,7 @@
 
 	<form action="./php/producto_actualizar.php" method="POST" class="FormularioAjax" autocomplete="off" >
 
-		<input type="hidden" name="id_producto" value="<?php echo $datos['id_prod']; ?>" required >
+		<input type="hidden" name="id_prod" value="<?php echo $id; ?>" required >
 
 		<form action="./php/producto_guardar.php" method="POST" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data" >
 		<div class="columns">

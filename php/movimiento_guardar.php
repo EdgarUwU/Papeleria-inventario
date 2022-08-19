@@ -48,10 +48,13 @@ if (verificar_datos("[0-9]{4}-[0-9]{2}-[0-9]{2}", $fecha)) {
     exit();
 }
 
+echo $id;
+
 $check_id_inventario = conexion();
 $check_id_inventario = $check_id_inventario->query("SELECT id_inventario FROM inventario WHERE id_prod = '$id'");
 $id_inventario = $check_id_inventario->fetch();
 $id_inventario = $id_inventario['id_inventario'];
+
 
 /*== Guardando datos ==*/
 $guardar_movimiento = conexion();
@@ -73,7 +76,7 @@ $check_cantidad = $check_cantidad->prepare("SELECT cantidad FROM inventario WHER
 $check_cantidad->execute();
 $cantidad_inventario = $check_cantidad->fetch();
 
-if (intval($cantidad) > $cantidad_inventario['cantidad'] && $tipo == "1" && $tipo == "3") {
+if (intval($cantidad) > $cantidad_inventario['cantidad'] && $tipo == "1" || $tipo == "3") {
     echo '
             <div class="notification is-danger is-light">
                 <strong>¡Ocurrio un error inesperado!</strong><br>

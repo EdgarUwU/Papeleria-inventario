@@ -7,7 +7,7 @@
 
     require_once "./php/main.php";
 
-    $id = (isset($_GET['product_id_up'])) ? $_GET['product_id_up'] : 0;
+    $id = (isset($_GET['movimiento_id_add'])) ? $_GET['movimiento_id_add'] : 0;
 
     /*== Verificando producto ==*/
     $check_producto = conexion2();
@@ -28,12 +28,12 @@
 
         <form action="./php/movimiento_guardar.php" method="POST" class="FormularioAjax" autocomplete="off">
             <div class="columns mt-5">
-            <input type="hidden" name="id_prod" value="<?php echo $datos['id_prod'] ?>" required>
+            <input type="hidden" name="id_prod" value="<?php echo $id ?>" required>
                 <div class="column">
                     <div class="control mr-6">
                         <label>Cantidad</label>
                         <span>*</span>
-                        <input class="input" type="text" name="cantidad" maxlength="45" placeholder="<?php echo 'Discponible: ' . $datos['cantidad']; ?>" required>
+                        <input class="input" type="text" name="cantidad" maxlength="45" placeholder="<?php echo 'Disponible: ' . $datos['cantidad']; ?>" required>
                     </div>
                 </div>
                 <div class="column ml-6">
