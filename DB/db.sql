@@ -14,7 +14,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema papeleria
 -- -----------------------------------------------------
-
 CREATE SCHEMA IF NOT EXISTS `papeleria` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `papeleria` ;
 
@@ -39,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `papeleria`.`productos` (
   UNIQUE INDEX `idproducto` (`id_prod` ASC) VISIBLE,
   INDEX `user3_idx` (`created_by` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 10
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -63,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `papeleria`.`inventario` (
     FOREIGN KEY (`id_prod`)
     REFERENCES `papeleria`.`productos` (`id_prod`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -72,8 +71,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `papeleria`.`movimientos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `papeleria`.`movimientos` (
-  `Id_cantidad` INT NOT NULL AUTO_INCREMENT,
-  `cantidad` INT NOT NULL,
+  `id_movimientos` INT NOT NULL AUTO_INCREMENT,
+  `cant_mov` INT NOT NULL,
   `fecha` DATETIME NOT NULL,
   `tipo` ENUM('Venta', 'Ingreso', 'Perdida') NOT NULL,
   `motivo` VARCHAR(100) NOT NULL,
@@ -83,14 +82,14 @@ CREATE TABLE IF NOT EXISTS `papeleria`.`movimientos` (
   `created_by` VARCHAR(50) NOT NULL,
   `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted` INT NOT NULL DEFAULT '0',
-  PRIMARY KEY (`Id_cantidad`),
-  UNIQUE INDEX `idacan` (`Id_cantidad` ASC) VISIBLE,
+  PRIMARY KEY (`id_movimientos`),
   INDEX `can_idx` (`id_inventario` ASC) VISIBLE,
   CONSTRAINT `can`
     FOREIGN KEY (`id_inventario`)
     REFERENCES `papeleria`.`inventario` (`id_inventario`)
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 40
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -117,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `papeleria`.`usuario` (
   PRIMARY KEY (`id_usuario`),
   UNIQUE INDEX `nombre_usuario_UNIQUE` (`nombre_usuario` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 24
+AUTO_INCREMENT = 26
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -125,7 +124,3 @@ COLLATE = utf8mb4_0900_ai_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-INSERT INTO `USUARIOS` (`username`,nombre, `apellido_pat`, `apellido_mat`, `contrasena`, `create_by`,ip,privilegios) VALUES
-('Administrador', 'Edgar', 'Escobedo','Nevárez', '$2y$10$EPY9LSLOFLDDBriuJICmFOqmZdnDXxLJG8YFbog5LcExp77DBQvgC', '1','192.168.127.66','1');
-
