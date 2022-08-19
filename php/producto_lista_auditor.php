@@ -5,20 +5,20 @@ $tabla = "";
 
 if (isset($busqueda) && $busqueda != "") {
 
-	$consulta_datos = "SELECT * FROM PRODUCTO,INVENTARIO, USUARIOS 
-	where PRODUCTO.id_producto=INVENTARIO.id_producto AND (AND USUARIOS.id_usuario=PRODUCTO.created_by 
-    OR PRODUCTO.nombre_prod LIKE '%$busqueda%' OR PRODUCTO.presentacion LIKE '%$busqueda%') 
-    ORDER BY PRODUCTO.nombre_prod ASC LIMIT $inicio,$registros";
+	$consulta_datos = "SELECT * FROM productos,inventario, usuario 
+	where productos.id_prod=inventario.id_prod AND (productos.created_by LIKE '%$busqueda%'
+    OR productos.nombre_prod LIKE '%$busqueda%' OR productos.presentacion LIKE '%$busqueda%') 
+    ORDER BY productos.nombre_prod ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_producto) FROM PRODUCTO WHERE nombre_prod LIKE '%$busqueda%' OR presentacion 
+	$consulta_total = "SELECT COUNT(id_prod) FROM productos WHERE nombre_prod LIKE '%$busqueda%' OR presentacion 
 	LIKE '%$busqueda%' ";
 } else {
 
-	$consulta_datos = "SELECT * FROM PRODUCTO,INVENTARIO,USUARIOS 
-	where PRODUCTO.id_producto=INVENTARIO.id_producto AND USUARIOS.id_usuario=PRODUCTO.created_by 
+	$consulta_datos = "SELECT * FROM productos,inventario,usuario
+	where productos.id_prod=inventario.id_prod
 	ORDER BY nombre_prod ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_producto) FROM PRODUCTO ";
+	$consulta_total = "SELECT COUNT(id_prod) FROM productos";
 }
 
 $conexion = conexion2();
@@ -43,10 +43,10 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 		} else {
 			$tabla .= '<img src="./img/producto.png">';
 		}
-        $datos_prod = $conexion->query("SELECT PRODUCTO.deleted,PRODUCTO.created,PRODUCTO.modified,PRODUCTO.modified_by,
-        USUARIOS.nombre,USUARIOS.apellido_pat,USUARIOS.apellido_mat FROM PRODUCTO,USUARIOS 
-        WHERE PRODUCTO.created_by=USUARIOS.id_usuario 
-        AND PRODUCTO.nombre_prod='" . $rows['nombre_prod'] . "'");
+        $datos_prod = $conexion->query("SELECT productos.deleted,productos.created_date,productos.modify_date,productos.modify_by,
+        usuario.nombre,usuario.apellido_pat,usuario.apellido_mat FROM productos,usuario 
+        WHERE productos.created_by=USUARIOS.id_usuario 
+        AND producto.nombre_prod='" . $rows['nombre_prod'] . "'");
         $datos_prod = $datos_prod->fetchAll();
         $datos_prod = $datos_prod[0];
         $estato = $datos_prod['deleted'];

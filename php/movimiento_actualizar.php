@@ -4,11 +4,10 @@ require_once "./main.php";
 
 
 /*== Almacenando datos ==*/
-$id = limpiar_cadena($_POST['id_prod']);
+$id = limpiar_cadena($_POST['id_movimiento']);
 $cantidad = limpiar_cadena($_POST['cantidad']);
 $fecha = limpiar_cadena($_POST['fecha']);
 $tipo = limpiar_cadena($_POST['tipo']);
-$created_by = $_SESSION['nombre'] . " " . $_SESSION['apellido_pat'] . " " . $_SESSION['apellido_mat'];
 $modify_by=$_SESSION['nombre']." ".$_SESSION['apellido_pat']." ".$_SESSION['apellido_mat'];
 $motivo = limpiar_cadena($_POST['motivo']);
 
@@ -48,30 +47,29 @@ if (verificar_datos("[0-9]{4}-[0-9]{2}-[0-9]{2}", $fecha)) {
     exit();
 }
 
-
 $check_id_inventario = conexion();
-$check_id_inventario = $check_id_inventario->query("SELECT id_inventario FROM inventario WHERE id_prod = '$id'");
+$check_id_inventario = $check_id_inventario->query("SELECT a.id_inventario FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario  WHERE b.id_movimientos = '$id'");
 $id_inventario = $check_id_inventario->fetch();
 $id_inventario = $id_inventario['id_inventario'];
 
-
 /*== Guardando datos ==*/
 $guardar_movimiento = conexion();
-$guardar_movimiento = $guardar_movimiento->prepare("INSERT INTO movimientos (cant_mov,fecha,tipo,motivo,id_inventario,created_by)
-                                                VALUES(:cantidad,:fecha,:tipo,:motivo,:id_inventario,:created_by)");
+$guardar_movimiento = $guardar_movimiento->prepare("UPDATE movimientos SET cant_mov=:cantidad, fecha=:fecha, tipo=:tipo, motivo=:motivo,modify_date=:modify_date, motivo=:motivo, 
+                                                    modify_by=:modify_by WHERE id_movimientos = :id");
 
 $marcadores = [
     ':cantidad' => $cantidad,
     ':fecha' => $fecha.' '.gmdate("H:i:s",time()-18000),
     ':tipo' => $tipo,
     ':motivo' => $motivo,
-    ':id_inventario' => $id_inventario,
-    ':created_by' => $created_by,
+    ":modify_date"=>gmdate("Y-m-d H:i:s",time()-18000),
+    ":modify_by"=>$modify_by,
+    ":id"=>$id
 ];
 
 //comparar si hay suficiente cantidad en el inventario
 $check_cantidad = conexion();
-$check_cantidad = $check_cantidad->prepare("SELECT cantidad FROM inventario WHERE id_prod = '$id'");
+$check_cantidad = $check_cantidad->prepare("SELECT cantidad FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario  WHERE b.id_movimientos = '$id'");
 $check_cantidad->execute();
 $cantidad_inventario = $check_cantidad->fetch();
 

@@ -15,7 +15,7 @@
     <div class="columns">
         <div class="column">
             <form action="" method="POST" autocomplete="off" >
-                <input type="hidden" name="modulo_buscador" value="movimiento">   
+                <input type="hidden" name="modulo_buscador" value="movimientos">   
                 <div class="field is-grouped">
                     <p class="control is-expanded">
                         <input class="input is-rounded" type="text" name="txt_buscador" placeholder="¿Qué estas buscando?" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}" maxlength="30" >
@@ -31,8 +31,8 @@
     <div class="columns">
         <div class="column">
             <form class="has-text-centered mt-6 mb-6" action="" method="POST" autocomplete="off" >
-                <input type="hidden" name="modulo_buscador" value="movimiento"> 
-                <input type="hidden" name="eliminar_buscador" value="movimiento">
+                <input type="hidden" name="modulo_buscador" value="movimientos"> 
+                <input type="hidden" name="eliminar_buscador" value="movimientos">
                 <p>Estas buscando <strong>“<?php echo $_SESSION['busqueda_movimientos']; ?>”</strong></p>
                 <br>
                 <button type="submit" class="button is-danger is-rounded">Eliminar busqueda</button>
@@ -57,7 +57,7 @@
             $pagina=limpiar_cadena($pagina);
             $url="index.php?vista=movimientos_list&page="; /* <== */
             $registros=8;
-            $busqueda=$_SESSION['busqueda_movimiento']; /* <== */
+            $busqueda=$_SESSION['busqueda_movimientos']; /* <== */
 
             # Paginador usuario #
             require_once "./php/movimientos_lista.php";

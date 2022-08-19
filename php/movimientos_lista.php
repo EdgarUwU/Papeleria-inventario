@@ -3,11 +3,12 @@ $inicio = ($pagina > 0) ? (($pagina * $registros) - $registros) : 0;
 $tabla = "";
 
 
+
+
 if (isset($busqueda) && $busqueda != "") {
 
-	$consulta_datos = "SELECT * FROM movimientos,inventario,productos 
-	where movimientos.id_inventario=inventario.id_inventario AND movimientos.deleted='0' AND (movimientos.tipo 
-	LIKE '%$busqueda%' OR movimientos.cantidad LIKE '%$busqueda%' OR movimientos.descripcion LIKE '%$busqueda%') ORDER BY movimientos.tipo 
+	$consulta_datos = "SELECT * FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario JOIN productos c ON a.id_prod=c.id_prod where a.id_inventario=b.id_inventario AND b.deleted='0' AND (b.tipo 
+	LIKE '%$busqueda%' OR b.cant_mov LIKE '%$busqueda%' OR b.motivo LIKE '%$busqueda%') ORDER BY b.tipo 
     ASC LIMIT $inicio,$registros";
 
 	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE movimientos.deleted='0' 
@@ -15,8 +16,7 @@ if (isset($busqueda) && $busqueda != "") {
 	LIKE '%$busqueda%' ";
 } else {
 
-	$consulta_datos = "SELECT * FROM movimientos,inventario,productos 
-	where movimientos.id_inventario=inventario.id_inventario AND movimientos.deleted='0' 
+	$consulta_datos = "SELECT * FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario JOIN productos c ON a.id_prod=c.id_prod where a.id_inventario=b.id_inventario AND b.deleted='0' 
 	ORDER BY fecha ASC LIMIT $inicio,$registros";
 
 	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE movimientos.deleted='0'";
@@ -51,14 +51,14 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 			            <div class="content">
 			              <p>
 			                <strong>' . $contador . ' - ' . $rows['tipo'] . '</strong><br>
-			                <strong>Cantidad:</strong> ' . $rows['cantidad'] . ' 
+			                <strong>Cantidad:</strong> ' . $rows['cant_mov'] . ' 
 							<strong>Fecha:</strong> ' . $rows['fecha'] . '
-							<strong>Motivo:</strong> ' . $rows['descripcion'] . '
+							<strong>Motivo:</strong> ' . $rows['motivo'] . '
 			              </p>
 			            </div>
 			            <div class="has-text-right">
-			                <a href="index.php?vista=product_update&product_id_up=' . $rows['id_movimientos'] . '" class="button is-success is-rounded is-small">Actualizar</a>
-			                <a href="' . $url . $pagina . '&product_id_del=' . $rows['id_movimientos'] . '" class="button is-danger is-rounded is-small">Eliminar</a>
+			                <a href="index.php?vista=movimientos_update&movimiento_id_up=' . $rows['id_movimientos'] . '" class="button is-success is-rounded is-small">Actualizar</a>
+			                <a href="' . $url . $pagina . '&movimiento_id_del=' . $rows['id_movimientos'] . '" class="button is-danger is-rounded is-small">Eliminar</a>
 			            </div>
 			        </div>
 			    </article>
