@@ -6,6 +6,9 @@
     <?php
         require_once "./php/main.php";
 
+        $id = $_GET["movimiento_id_aud"];
+
+
         if(isset($_POST['modulo_buscador'])){
             require_once "./php/buscador.php";
         }
@@ -55,7 +58,7 @@
             }
 
             $pagina=limpiar_cadena($pagina);
-            $url="index.php?vista=movimientos_list&page="; /* <== */
+            $url="index.php?vista=movimientos_list&movimiento_id_aud=$id&page="; /* <== */
             $registros=8;
             $busqueda=$_SESSION['busqueda_movimientos_auditor']; /* <== */
 
@@ -84,7 +87,7 @@
         }
 
         $pagina=limpiar_cadena($pagina);
-        $url="index.php?vista=movimientos_list&page=";
+        $url="index.php?vista=movimientos_list_auditor&movimiento_id_aud=$id&page=";
         $registros=8;
         $busqueda="";
 

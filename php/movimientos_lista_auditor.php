@@ -1,25 +1,26 @@
 <?php
 $inicio = ($pagina > 0) ? (($pagina * $registros) - $registros) : 0;
 $tabla = "";
+$id = (isset($_GET['movimiento_id_aud'])) ? $_GET['movimiento_id_aud'] : 0;
 
 
 
 
 if (isset($busqueda) && $busqueda != "") {
 
-	$consulta_datos = "SELECT * FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario JOIN productos c ON a.id_prod=c.id_prod where a.id_inventario=b.id_inventario AND b.deleted='0' AND (b.tipo 
+	$consulta_datos = "SELECT * FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario JOIN productos c ON a.id_prod=c.id_prod where a.id_inventario=b.id_inventario AND a.id_inventario='$id' AND (b.tipo 
 	LIKE '%$busqueda%' OR b.cant_mov LIKE '%$busqueda%' OR b.motivo LIKE '%$busqueda%') ORDER BY b.tipo 
     ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE movimientos.deleted='0' 
+	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE movimientos.id_inventario='$id' 
 	AND  tipo LIKE '%$busqueda%' OR motivo 
 	LIKE '%$busqueda%' ";
 } else {
 
-	$consulta_datos = "SELECT * FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario JOIN productos c ON a.id_prod=c.id_prod where a.id_inventario=b.id_inventario AND b.deleted='0' 
+	$consulta_datos = "SELECT * FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario JOIN productos c ON a.id_prod=c.id_prod where a.id_inventario=b.id_inventario AND a.id_inventario='$id' 
 	ORDER BY fecha ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE movimientos.deleted='0'";
+	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE movimientos.id_inventario='$id'";
 }
 
 $conexion = conexion2();
@@ -55,10 +56,6 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 							<strong>Fecha:</strong> ' . $rows['fecha'] . '
 							<strong>Motivo:</strong> ' . $rows['motivo'] . '
 			              </p>
-			            </div>
-			            <div class="has-text-right">
-			                <a href="index.php?vista=movimientos_update&movimiento_id_up=' . $rows['id_movimientos'] . '" class="button is-success is-rounded is-small">Actualizar</a>
-			                <a href="' . $url . $pagina . '&movimiento_id_del=' . $rows['id_movimientos'] . '" class="button is-danger is-rounded is-small">Eliminar</a>
 			            </div>
 			        </div>
 			    </article>

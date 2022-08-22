@@ -22,13 +22,6 @@
             </div>
 
             <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">Movimientos</a>
-                <div class="navbar-dropdown">
-                    <a href="index.php?vista=movimientos_list_auditor" class="navbar-item">Lista</a>
-                </div>
-            </div>
-
-            <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">Productos</a>
 
                 <div class="navbar-dropdown">
