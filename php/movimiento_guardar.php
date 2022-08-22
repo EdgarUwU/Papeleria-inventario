@@ -49,7 +49,7 @@ if (verificar_datos("[0-9]{4}-[0-9]{2}-[0-9]{2}", $fecha)) {
 }
 
 
-$check_id_inventario = conexion();
+$check_id_inventario = conexion2();
 $check_id_inventario = $check_id_inventario->query("SELECT id_inventario FROM inventario WHERE id_prod = '$id'");
 $id_inventario = $check_id_inventario->fetch();
 $id_inventario = $id_inventario['id_inventario'];
@@ -70,7 +70,7 @@ $marcadores = [
 ];
 
 //comparar si hay suficiente cantidad en el inventario
-$check_cantidad = conexion();
+$check_cantidad = conexion2();
 $check_cantidad = $check_cantidad->prepare("SELECT cantidad FROM inventario WHERE id_prod = '$id'");
 $check_cantidad->execute();
 $cantidad_inventario = $check_cantidad->fetch();

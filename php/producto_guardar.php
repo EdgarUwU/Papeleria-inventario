@@ -204,7 +204,7 @@ $marcadores = [
     ':foto' => $foto
 ];
 $guardar_producto->execute($marcadores);
-$check_id_prod = conexion();
+$check_id_prod = conexion2();
 $check_id_prod = $check_id_prod->query("SELECT A.id_prod as 'id' FROM productos A LEFT JOIN inventario B ON A.id_prod=B.id_prod WHERE A.nombre_prod='$nombre'");
 $id_prod = $check_id_prod->fetch();
 

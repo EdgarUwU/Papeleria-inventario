@@ -45,7 +45,7 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 			<img src="./img/producto.png">
 			</a>';
 		}
-		$datos_prod = conexion();
+		$datos_prod = conexion2();
 		$datos_prod = $datos_prod->query("SELECT * FROM productos WHERE id_prod='" . $rows['id_prod'] . "'");
 		$datos_prod = $datos_prod->fetchAll();
 		$datos_prod = $datos_prod[0];

@@ -42,9 +42,6 @@
     </div>
     <?php
             # Eliminar usuario #
-            if(isset($_GET['product_id_del'])){
-                require_once "./php/producto_eliminar.php";
-            }
 
             if(!isset($_GET['page'])){
                 $pagina=1;
@@ -56,7 +53,7 @@
             }
 
             $pagina=limpiar_cadena($pagina);
-            $url="index.php?vista=product_list&page="; /* <== */
+            $url="index.php?vista=product_list_auditor&page="; /* <== */
             $registros=8;
             $busqueda=$_SESSION['busqueda_producto_auditor']; /* <== */
 
@@ -71,9 +68,6 @@
         require_once "./php/main.php";
 
         # Eliminar usuario #
-        if(isset($_GET['product_id_del'])){
-            require_once "./php/prducto_eliminar.php";
-        }
 
         if(!isset($_GET['page'])){
             $pagina=1;
@@ -85,7 +79,7 @@
         }
 
         $pagina=limpiar_cadena($pagina);
-        $url="index.php?vista=product_list&page=";
+        $url="index.php?vista=product_list_auditor&page=";
         $registros=8;
         $busqueda="";
 

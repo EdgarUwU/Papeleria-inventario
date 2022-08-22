@@ -5,7 +5,7 @@
     $product_id=limpiar_cadena($_POST['img_del_id']);
 
     /*== Verificando producto ==*/
-    $check_producto=conexion();
+    $check_producto=conexion2();
     $check_producto=$check_producto->query("SELECT * FROM producto WHERE producto_id='$product_id'");
 
     if($check_producto->rowCount()==1){

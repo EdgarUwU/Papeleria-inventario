@@ -47,7 +47,7 @@ if (verificar_datos("[0-9]{4}-[0-9]{2}-[0-9]{2}", $fecha)) {
     exit();
 }
 
-$check_id_inventario = conexion();
+$check_id_inventario = conexion2();
 $check_id_inventario = $check_id_inventario->query("SELECT a.id_inventario FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario  WHERE b.id_movimientos = '$id'");
 $id_inventario = $check_id_inventario->fetch();
 $id_inventario = $id_inventario['id_inventario'];
@@ -68,7 +68,7 @@ $marcadores = [
 ];
 
 //comparar si hay suficiente cantidad en el inventario
-$check_cantidad = conexion();
+$check_cantidad = conexion2();
 $check_cantidad = $check_cantidad->prepare("SELECT cantidad FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario  WHERE b.id_movimientos = '$id'");
 $check_cantidad->execute();
 $cantidad_inventario = $check_cantidad->fetch();

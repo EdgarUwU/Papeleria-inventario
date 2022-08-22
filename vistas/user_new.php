@@ -65,20 +65,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="column">
-			<div class="control">
-				<label>Foto</label><br>
-				<div class="file is-small has-name">
-					<label class="file-label">
-						<input class="file-input" type="file" name="usuario_foto" accept=".jpg, .png, .jpeg">
-						<span class="file-cta">
-							<span class="file-label">Buscar</span>
-						</span>
-						<span class="file-name">JPG, JPEG, PNG. (MAX 3MB)</span>
-					</label>
-				</div>
-			</div>
-		</div>
 		<p class="has-text-centered">
 			<button type="submit" class="button is-info is-rounded">Guardar</button>
 		</p>

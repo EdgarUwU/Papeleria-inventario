@@ -29,6 +29,7 @@ $datos = $datos->fetchAll();
 
 $total = $conexion->query($consulta_total);
 $total = (int) $total->fetchColumn();
+$comparacion = "";
 
 $Npaginas = ceil($total / $registros);
 
@@ -48,6 +49,12 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 					<img src="./img/producto.png">
 					</a>';
 		}
+		if ($_SESSION['privilegios'] != "user") {
+			$comparacion ='<div class="has-text-right">
+			<a href="index.php?vista=product_update&product_id_up=' . $rows['id_prod'] . '" class="button is-success is-rounded is-small">Actualizar</a>
+			<a href="' . $url . $pagina . '&product_id_del=' . $rows['id_prod'] . '" class="button is-danger is-rounded is-small">Eliminar</a>
+		</div>';
+		}
 		$tabla .= '</figure>
 			        <div class="media-content">
 			            <div class="content">
@@ -60,10 +67,7 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 							<strong>Presentación:</strong> ' . $rows['presentacion'] . '			              
 							</p>
 			            </div>
-			            <div class="has-text-right">
-			                <a href="index.php?vista=product_update&product_id_up=' . $rows['id_prod'] . '" class="button is-success is-rounded is-small">Actualizar</a>
-							<a href="'.$url.$pagina.'&product_id_del='.$rows['id_prod'].'" class="button is-danger is-rounded is-small">Eliminar</a>
-			            </div>
+						' . $comparacion . '
 			        </div>
 			    </article>
 

@@ -10,7 +10,7 @@
 			"usuario_auditor"=>"user_list_auditor",
 			"usuario_recover"=>"user_recover",
 			"movimientos"=>"movimientos_list",
-			"producto"=>"product_list_auditor",
+			"producto"=>"product_list",
 			"movimientos_auditor"=>"movimientos_list_auditor",
 			"producto_recover"=>"product_recover",
 			"producto_auditor"=>"product_list_auditor"
