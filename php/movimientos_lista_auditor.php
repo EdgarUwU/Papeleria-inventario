@@ -8,19 +8,17 @@ $id = (isset($_GET['movimiento_id_aud'])) ? $_GET['movimiento_id_aud'] : 0;
 
 if (isset($busqueda) && $busqueda != "") {
 
-	$consulta_datos = "SELECT * FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario JOIN productos c ON a.id_prod=c.id_prod where a.id_inventario=b.id_inventario AND a.id_inventario='$id' AND (b.tipo 
+	$consulta_datos = "SELECT * FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario JOIN productos c ON a.id_prod=c.id_prod where a.id_inventario=b.id_inventario  AND (b.tipo 
 	LIKE '%$busqueda%' OR b.cant_mov LIKE '%$busqueda%' OR b.motivo LIKE '%$busqueda%') ORDER BY b.tipo 
     ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE movimientos.id_inventario='$id' 
-	AND  tipo LIKE '%$busqueda%' OR motivo 
-	LIKE '%$busqueda%' ";
+	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE tipo LIKE '%$busqueda%' OR cant_mov LIKE '%$busqueda%' OR motivo LIKE '%$busqueda%'";
 } else {
 
-	$consulta_datos = "SELECT * FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario JOIN productos c ON a.id_prod=c.id_prod where a.id_inventario=b.id_inventario AND a.id_inventario='$id' 
+	$consulta_datos = "SELECT * FROM inventario a JOIN movimientos b ON a.id_inventario=b.id_inventario JOIN productos c ON a.id_prod=c.id_prod where a.id_inventario=b.id_inventario 
 	ORDER BY fecha ASC LIMIT $inicio,$registros";
 
-	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos WHERE movimientos.id_inventario='$id'";
+	$consulta_total = "SELECT COUNT(id_movimientos) FROM movimientos";
 }
 
 $conexion = conexion2();
@@ -30,7 +28,6 @@ $datos = $datos->fetchAll();
 
 $total = $conexion->query($consulta_total);
 $total = (int) $total->fetchColumn();
-
 $Npaginas = ceil($total / $registros);
 
 if ($total >= 1 && $pagina <= $Npaginas) {
@@ -51,10 +48,17 @@ if ($total >= 1 && $pagina <= $Npaginas) {
 			        <div class="media-content">
 			            <div class="content">
 			              <p>
-			                <strong>' . $contador . ' - ' . $rows['tipo'] . '</strong><br>
+			                <strong>' . $contador . ' - ' . $rows['tipo'] .'</strong><br>
 			                <strong>Cantidad:</strong> ' . $rows['cant_mov'] . ' 
 							<strong>Fecha:</strong> ' . $rows['fecha'] . '
 							<strong>Motivo:</strong> ' . $rows['motivo'] . '
+							<strong>Producto:</strong> ' . $rows['nombre_prod'] . '
+							<strong>Modificado por:</strong> ' . $rows['modify_by'] . '<br>
+							<strong>Fecha de modificación:</strong> ' . $rows['modify_date'] . '
+							<strong>Creado por:</strong> ' . $rows['created_by'] . '
+							<strong>Fecha de creación:</strong> ' . $rows['created_date'] . '
+
+
 			              </p>
 			            </div>
 			        </div>
